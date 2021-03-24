@@ -26,7 +26,6 @@ TEST(SampleTest, Sample2) {
 
 }
 
-
 // 아래 main이 코드는 거의 동일합니다.
 //  => main도 라이브러리 안에 포함해서 사용하면 편리합니다.
 #if 0
