@@ -36,7 +36,12 @@ public:
 //  => 테스트 코드(테스트 케이스) 안에서 제어 구문(반복문, 조건문, 예외처리)의 발생을 최소화해야 한다.
 // 3. 신뢰성
 
-TEST(CalculatorTest, PlusTest2) {
+#define SPEC printf
+
+// 테스트의 이름에 테스트 시나리오가 반영되는 것이 좋다.
+//  => ex) 테스트대상함수_시나리오_기대값
+TEST(CalculatorTest, Plus_2Plus2_Displays4) {
+	SPEC("2 더하기 2를 하였을 때 4가 나오는지 검증한다.\n");
 	Calculator* calc = new Calculator;
 
 	calc->Enter(2);
