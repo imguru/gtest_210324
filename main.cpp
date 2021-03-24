@@ -12,6 +12,22 @@
 //  - 라이브러리가 업데이트되어도, 기존 프로그램을 다시 컴파일할 필요가 없다.
 //  - 프로그램 내부에서 필요한 시점에 로드해서 사용할 수 있습니다.
 
+// TestSuite
+//  - TestCase
+//  - TestCase
+
+
+// Google Test 에서 TestCase를 추가하는 방법.
+//TEST(TestSuiteName, TestCaseName)
+TEST(SampleTest, Sample1) {
+
+}
+
+TEST(SampleTest, Sample2) {
+
+}
+
+
 int main(int argc, char** argv) {
 	testing::InitGoogleTest(&argc, argv);
 
