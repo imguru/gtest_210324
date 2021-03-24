@@ -40,3 +40,28 @@ TEST(SampleTest, goo) {}
 
 TEST(MyTest, foo) {}
 TEST(MyTestSample, foo) {}
+
+
+
+// Fixture
+//   1) Fixture - xUnit            => 신선한 픽스쳐 전략
+//     - SetUp / TearDown
+//   2) Suite Fixture - xUnit      => 신선한 픽스쳐 전략으로 인해 느린 테스트 문제가 발생하는 경우 => 공유 픽스쳐 전략
+//     - SetUpTestSuite / TearDownTestSuite
+//
+//   //--------------
+//   3) Global Fixture - Google Test => 라이브러리 초기화 / 해지
+//     - Environment::SetUp / Environment::TearDown
+
+
+
+
+
+
+
+
+
+
+
+
+
