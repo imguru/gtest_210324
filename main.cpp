@@ -16,7 +16,6 @@
 //  - TestCase
 //  - TestCase
 
-
 // Google Test 에서 TestCase를 추가하는 방법.
 //TEST(TestSuiteName, TestCaseName)
 TEST(SampleTest, Sample1) {
@@ -28,8 +27,12 @@ TEST(SampleTest, Sample2) {
 }
 
 
+// 아래 main이 코드는 거의 동일합니다.
+//  => main도 라이브러리 안에 포함해서 사용하면 편리합니다.
+#if 0
 int main(int argc, char** argv) {
 	testing::InitGoogleTest(&argc, argv);
 
 	return RUN_ALL_TESTS();
 }
+#endif
