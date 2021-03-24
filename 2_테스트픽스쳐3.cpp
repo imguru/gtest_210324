@@ -52,6 +52,8 @@ protected:
 
 	Calculator* calc;
 
+	// virtual void SetUp() {}
+	// virtual void Setup() {
 	void SetUp() override {
 		printf("SetUp()\n");
 		calc = new Calculator;
