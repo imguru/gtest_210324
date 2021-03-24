@@ -28,6 +28,7 @@ public:
 //     테스트 느려서 코드가 변경되어도 테스트를 수행하지 않는다.
 //
 //  해결방법: Suite Fixture SetUp / TearDown
+//    => xUnit Test Framework
 
 // ----------- Suite Fixture Setup ----- Connect(); // static
 // SampleTest *ts = new SampleTest;
@@ -43,24 +44,45 @@ public:
 // delete ts;
 // ----------- Suite Fixture TearDown ----- Disconnect(); // static
 
-
-
 class DatabaseTest : public testing::Test {
 protected:
-	Database* database;
+	// Database* database;
+	// DatabaseTest() : database(nullptr) {}
 	
-	DatabaseTest() : database(nullptr) {}
+	static Database* database;
 
-	void SetUp() override {
+	// Suite Fixture SetUp / TearDown
+	// 1.10 이전
+	// static void SetUpTeatCase() {}
+	
+	static void SetUpTestSuite() {
+		printf("SetUpTestSuite\n");
 		database = new Database;
 		database->Connect(); 
 	}
 
-	void TearDown() override {
+	static void TearDownTestSuite() {
+		printf("TearDownTestSuite\n");
 		database->Disconnect();
 		delete database;
 	}
+
+	// Fixture SetUp / TearDown
+	void SetUp() override {
+		printf("SetUp()\n");
+		// database = new Database;
+		// database->Connect(); 
+	}
+
+	void TearDown() override {
+		printf("TearDown()\n");
+		// database->Disconnect();
+		// delete database;
+	}
 };
+
+// 정적 멤버 변수에 대해서는 외부 정의가 필요합니다.
+Database* DatabaseTest::database = nullptr;
 
 
 TEST_F(DatabaseTest, Login) {
