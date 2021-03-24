@@ -1,7 +1,7 @@
 // 2_테스트픽스쳐.cpp
 class Calculator {
 public:
-	double Display() { return 0; }
+	double Display() { return 4; }
 
 	void Enter(double v) {}
 	void PressPlus() {}
@@ -30,8 +30,26 @@ public:
 //   4단계: 테스트의 픽스쳐를 해체해서 테스트 시작 이전의 상태로 돌려놓는다. - TearDown()
 
 
+// xUnit Test Framework이 TestCase를 수행하는 흐름
+//  => 신선한 픽스쳐 전략.
+//  RUN_ALL_TESTS();
+//    CalculatorTest* ts = new CalculatorTest;
+//    ts->SetUp();
+//    ts->TestBody1();
+//    ts->TearDown();
+//    delete ts;
+//
+//    CalculatorTest* ts = new CalculatorTest;
+//    ts->SetUp();
+//    ts->TestBody2();
+//    ts->TearDown();
+//    delete ts;
+
 class CalculatorTest : public testing::Test {
 protected:
+	CalculatorTest() { printf("CalculatorTest()\n"); }
+	~CalculatorTest() { printf("~CalculatorTest()\n"); }
+
 	Calculator* calc;
 
 	void SetUp() override {
@@ -47,6 +65,7 @@ protected:
 
 TEST_F(CalculatorTest, Plus_2Plus2_Displays4) {
 	SPEC("2 더하기 2를 하였을 때 4가 나오는지 검증한다.\n");
+	printf("TestBody() - Plus_2Plus2_Displays4\n");
 	calc->Enter(2);
 	calc->PressPlus();
 	calc->Enter(2);
@@ -57,6 +76,7 @@ TEST_F(CalculatorTest, Plus_2Plus2_Displays4) {
 }
 
 TEST_F(CalculatorTest, PlusTest) {
+	printf("TestBody() - PlusTest\n");
 	calc->Enter(2);
 	calc->PressPlus();
 	calc->Enter(2);
