@@ -12,18 +12,29 @@
 //  - 라이브러리가 업데이트되어도, 기존 프로그램을 다시 컴파일할 필요가 없다.
 //  - 프로그램 내부에서 필요한 시점에 로드해서 사용할 수 있습니다.
 
-// TestSuite
-//  - TestCase
-//  - TestCase
+
+// Google Test - 1.10
+//  - 표준적이지 않은 이름을 사용하고 있었습니다.
+//  - 1.10 이전
+//  TestCase
+//   - Test
+//   - Test
+//
+//  - 1.10 이후(xUnit Test Pattern)
+//  TestSuite
+//   - TestCase
+//   - TestCase
 
 // Google Test 에서 TestCase를 추가하는 방법.
 //TEST(TestSuiteName, TestCaseName)
 TEST(SampleTest, Sample1) {
-
+	// 명시적으로 테스트를 실패할 수 있습니다.
+	FAIL();
 }
 
 TEST(SampleTest, Sample2) {
-
+	// 명시적으로 성공을 표현하는 방법.
+	SUCCEED();
 }
 
 // 아래 main이 코드는 거의 동일합니다.
