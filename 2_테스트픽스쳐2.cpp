@@ -53,6 +53,7 @@ class CalculatorTest : public testing::Test {
 protected:
 	// 주의 사항: 테스트 케이스에서 접근하기 위해서는 반드시 protected 이상 이어야 합니다.
 	Calculator* Create() { return new Calculator; }
+	// Test Utility Method - Creation Method
 };
 
 //      TEST: 암묵적인 TestSuite class를 사용한다.
