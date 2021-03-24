@@ -26,9 +26,13 @@ public:
 //  => Test Suite class per class
 
 // 3A
-// 1. Arrange: 객체를 생성하고, 필요한 경우 설정하고 준비한다.
-// 2. Act: 객체에 작용을 가한다.
-// 3. Assert: 기대하는 바를 단언한다.
+// 1. Arrange(Given): 객체를 생성하고, 필요한 경우 설정하고 준비한다.
+// 2. Act(When): 객체에 작용을 가한다.
+// 3. Assert(Then): 기대하는 바를 단언한다.
+
+// TDD(Test Driven Development) vs BDD(Behavior Driven Developmen)
+// => 용어적인 차이(사람의 말과 가깝게 사용하자)
+//    행위 기반 검증
 
 // 테스트 코드 품질
 // 1. 가독성
@@ -41,14 +45,15 @@ public:
 // 테스트의 이름에 테스트 시나리오가 반영되는 것이 좋다.
 //  => ex) 테스트대상함수_시나리오_기대값
 TEST(CalculatorTest, Plus_2Plus2_Displays4) {
+	// Arrange(Given)
 	SPEC("2 더하기 2를 하였을 때 4가 나오는지 검증한다.\n");
 	Calculator* calc = new Calculator;
-
+	// Act(When)
 	calc->Enter(2);
 	calc->PressPlus();
 	calc->Enter(2);
 	calc->PressEquals();
-
+	// Assert(Then)
 	ASSERT_EQ(calc->Display(), 4) << "2+2 하였을 때";
 }
 
