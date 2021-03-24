@@ -27,15 +27,39 @@ public:
 #include <gtest/gtest.h>
 
 
+// TEST(SampleTest, foo) {}  // class SampleTest_foo : public testing::Test
+// TEST(SampleTest, goo) {}  // class SampleTest_goo : public testing::Test
+
+//              testing::Test
+//                    |
+//                    |
+//      SampleTest.foo / SampleTest.goo         
+
+
+// class SampleTest : public testing::Test {};
+// TEST_F(SampleTest, foo) {} // class SampleTest_foo : public SampleTest
+// TEST_F(SampleTest, goo) {} // class SampleTest_goo : public SampleTest
+
+//              testing::Test
+//                   |
+//               SampleTest  
+//                   |
+//     SampleTest.foo / SampleTest.goo
+
 // 1) 명시적인 Test Suite class 정의해야 합니다.
 class CalculatorTest : public testing::Test {
+// public:
+// private:
+protected:
+	// 주의 사항: 테스트 케이스에서 접근하기 위해서는 반드시 protected 이상 이어야 합니다.
+	Calculator* Create() { return new Calculator; }
 };
 
-// TEST: 암묵적인 TestSuite class를 사용한다.
-// 2) TEST_F 매크로를 통해 테스트 케이스를 생성해야 합니다.
+//      TEST: 암묵적인 TestSuite class를 사용한다.
+// 2) TEST_F: 매크로를 통해 테스트 케이스를 생성해야 합니다.
 TEST_F(CalculatorTest, Plus_2Plus2_Displays4) {
 	SPEC("2 더하기 2를 하였을 때 4가 나오는지 검증한다.\n");
-	Calculator* calc = new Calculator;
+	Calculator* calc = Create();
 
 	calc->Enter(2);
 	calc->PressPlus();
@@ -46,7 +70,7 @@ TEST_F(CalculatorTest, Plus_2Plus2_Displays4) {
 }
 
 TEST_F(CalculatorTest, PlusTest) {
-	Calculator* calc = new Calculator;
+	Calculator* calc = Create();
 
 	calc->Enter(2);
 	calc->PressPlus();
