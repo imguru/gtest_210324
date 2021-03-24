@@ -16,8 +16,8 @@
 TEST(GoogleTest, Sample1) {
 	int expected = 42;
 
-	int actual1 = 41;
-	int actual2 = 41;
+	int actual1 = 42;
+	int actual2 = 42;
 
 	// ASSERT_EQ(expected, actual1) << "Reason 1";
 	// ASSERT_EQ(expected, actual2) << "Reason 2";
@@ -46,6 +46,26 @@ TEST(GoogleTest, Sample2) {
 	// EXPECT_STREQ(s3, s4);
 	EXPECT_STRCASEEQ(s3, s4);
 }
+
+// 3. double, float
+//    EXPECT_DOUBLE_EQ
+//    EXPECT_FLOAT_EQ
+//
+//    EXPECT_NEAR: 오차 범위를 직접 설정할 수 있습니다.
+TEST(GoogleTest, Sample3) {
+	double a = 0.7;
+	double b = 0.1 * 7;
+
+	// EXPECT_EQ(a, b);
+	EXPECT_DOUBLE_EQ(a, b); // 4ULP's
+	                        // https://en.wikipedia.org/wiki/Unit_in_the_last_place
+	EXPECT_NEAR(a, b, 0.000000000000001);
+}
+
+
+
+
+
 
 
 
