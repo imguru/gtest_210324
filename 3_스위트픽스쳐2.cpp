@@ -29,7 +29,15 @@ public:
 //
 //  해결방법: Suite Fixture SetUp / TearDown
 //    => xUnit Test Framework
-
+//    신선한 픽스쳐 전략 => 공유 픽스쳐 전략
+//
+//    문제점: 각각의 테스트 케이스는 더이상 독립적이지 않습니다.
+//            성능은 더 빠르게 동작하지만, 공유 픽스쳐가 망가지면 "변덕스러운 테스트"의 가능성이 있습니다.
+//
+//            "변덕 스러운 테스트"
+//            => 공유 픽스쳐의 상태에 따라서 테스트의 결과가 변경된다.
+//               "신뢰성"에 문제가 발생합니다.
+//
 // ----------- Suite Fixture Setup ----- Connect(); // static
 // SampleTest *ts = new SampleTest;
 // ts->SetUp();
@@ -83,7 +91,6 @@ protected:
 
 // 정적 멤버 변수에 대해서는 외부 정의가 필요합니다.
 Database* DatabaseTest::database = nullptr;
-
 
 TEST_F(DatabaseTest, Login) {
 	database->Login("test_id", "test_password");
