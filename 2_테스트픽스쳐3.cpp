@@ -22,6 +22,14 @@ public:
 //   단점: 픽스쳐 설치 코드가 테스트 함수 밖에 존재하기 때문에, 테스트 함수만으로 테스트 코드를 이해하기 어려울 수 있다.
 #include <gtest/gtest.h>
 
+// xUnit Test Pattern 에서 테스트 케이스를 구성하는 방법
+//  => 4단계 테스트 패턴(Four Phase Test Pattern)
+//   1단계: 테스트의 픽스쳐를 설치하거나, 실제 결과를 관찰하기 위해 필요한 것을 집어넣는 작업을 한다. - SetUp()
+//   2단계: SUT와 상호작용한다.   - TestCase TestBody
+//   3단계: 기대 결과를 단언한다. - TestCase TestBody
+//   4단계: 테스트의 픽스쳐를 해체해서 테스트 시작 이전의 상태로 돌려놓는다. - TearDown()
+
+
 class CalculatorTest : public testing::Test {
 protected:
 	Calculator* calc;
