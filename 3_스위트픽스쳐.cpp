@@ -11,6 +11,7 @@ public:
 	void Logout() {}
 
 	bool IsLogin() { return true; }
+	bool IsConnect() { return true; } // !!
 };
 
 //-----------------------
@@ -24,7 +25,7 @@ protected:
 
 	void SetUp() override {
 		database = new Database;
-		database->Connect();
+		database->Connect(); 
 	}
 
 	void TearDown() override {
