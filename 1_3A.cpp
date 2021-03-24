@@ -30,6 +30,23 @@ public:
 // 2. Act: 객체에 작용을 가한다.
 // 3. Assert: 기대하는 바를 단언한다.
 
+// 테스트 코드 품질
+// 1. 가독성
+// 2. 유지보수성
+//  => 테스트 코드(테스트 케이스) 안에서 제어 구문(반복문, 조건문, 예외처리)의 발생을 최소화해야 한다.
+// 3. 신뢰성
+
+TEST(CalculatorTest, PlusTest2) {
+	Calculator* calc = new Calculator;
+
+	calc->Enter(2);
+	calc->PressPlus();
+	calc->Enter(2);
+	calc->PressEquals();
+
+	ASSERT_EQ(calc->Display(), 4) << "2+2 하였을 때";
+}
+
 TEST(CalculatorTest, PlusTest) {
 	Calculator* calc = new Calculator;
 
@@ -39,11 +56,16 @@ TEST(CalculatorTest, PlusTest) {
 	calc->PressEquals();
 
 	if (calc->Display() != 4) {
-		FAIL();
+		// FAIL();
+		// 실패의 원인을 명시해야 한다.
+		FAIL() << "2+2 하였을 때 4가 아닙니다.";
 	} else {
 		SUCCEED();
 	}
 }
+
+
+
 
 
 
