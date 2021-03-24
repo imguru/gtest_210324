@@ -15,12 +15,11 @@ public:
 #define SPEC printf
 
 // 픽스쳐 설치 방법
-//  3. Implicit Setup(암묵적 설치)
-//   : 여러 테스트에서 같은 테스트 픽스쳐의 코드를 SetUp() 함수에서 생성한다.
+//  3. Implicit Setup/TearDown(암묵적 설치/해체)
+//   : 여러 테스트에서 같은 테스트 픽스쳐의 코드를 SetUp() / TearDown() 함수에서 생성한다.
 //   => xUnit Test Framework 기능
 //   장점: 테스트 코드 중복을 제거하고, 꼭 필요하지 않은 상호작용(설치) 캡슐화할 수 있다.
 //   단점: 픽스쳐 설치 코드가 테스트 함수 밖에 존재하기 때문에, 테스트 함수만으로 테스트 코드를 이해하기 어려울 수 있다.
-//
 #include <gtest/gtest.h>
 
 class CalculatorTest : public testing::Test {
@@ -30,6 +29,11 @@ protected:
 	void SetUp() override {
 		printf("SetUp()\n");
 		calc = new Calculator;
+	}
+
+	void TearDown() override {
+		printf("TearDown()\n");
+		delete calc;
 	}
 };
 
@@ -41,6 +45,7 @@ TEST_F(CalculatorTest, Plus_2Plus2_Displays4) {
 	calc->PressEquals();
 
 	ASSERT_EQ(calc->Display(), 4) << "2+2 하였을 때";
+	// 테스트가 실패할 경우, 이후의 코드는 수행되지 않습니다.
 }
 
 TEST_F(CalculatorTest, PlusTest) {
