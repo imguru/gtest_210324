@@ -136,6 +136,11 @@ TEST(SampleTest2, goo) {}
 TEST(SampleTest3, foo) {}
 TEST(SampleTest3, goo) {}
 
+// 8. Test Result Formatter
+//  $ ./a.out --gtest_output=xml
+//    xml: test_details.xml   -> xUnit Test Framework
+//    json: test_details.json -> Google Test
+
 
 
 
