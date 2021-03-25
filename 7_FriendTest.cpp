@@ -1,7 +1,7 @@
 
 // 7_FriendTest.cpp
 class User {
-protected:
+private:           // 멤버 변수 - private
 	int age;
 
 public:
@@ -9,6 +9,11 @@ public:
 
 	void Do() {
 		age = 100;
+	}
+
+protected:
+	int GetAge() const {
+		return age;
 	}
 };
 
@@ -20,7 +25,8 @@ public:
 //
 class TestUser : public User {
 public:
-	using User::age;  // protected ->public
+	//using User::age;  // protected ->public
+	using User::GetAge;
 };
 
 TEST(UserTest, Do) {
@@ -29,6 +35,7 @@ TEST(UserTest, Do) {
 
 	user.Do();
 
-	EXPECT_EQ(user.age, 100);
+	// EXPECT_EQ(user.age, 100);
+	EXPECT_EQ(user.GetAge(), 100);
 }
 
