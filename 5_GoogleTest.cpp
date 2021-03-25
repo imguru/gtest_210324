@@ -125,6 +125,16 @@ TEST(GoogleTest, Sample6) {
 }
 
 
+// 7. 필터
+//  $ ./a.out --gtest_filter=GoogleTest.Sample1
+//  $ ./a.out --gtest_filter=SampleTest*.*:-*.foo
+//
+//  핵심: 필터의 기능을 온전히 사용하기 위해서는 잘 협의된 이름규칙이 필요합니다.
+TEST(SampleTest2, foo) {}
+TEST(SampleTest2, goo) {}
+
+TEST(SampleTest3, foo) {}
+TEST(SampleTest3, goo) {}
 
 
 
