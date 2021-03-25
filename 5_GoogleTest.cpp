@@ -62,6 +62,57 @@ TEST(GoogleTest, Sample3) {
 	EXPECT_NEAR(a, b, 0.000000000000001);
 }
 
+// 4. 예외 테스트
+//  - EXPECT_THROW
+//  - EXPECT_ANY_THROW
+void IsValidFilename(const std::string& filename) {
+	if (filename.empty()) {
+		// throw 1;
+		throw std::invalid_argument("filename is empty!!");
+	}
+}
+
+TEST(GoogleTest, Sample4) {
+	std::string emptyFilename = "";
+
+	EXPECT_ANY_THROW(IsValidFilename(emptyFilename));
+	EXPECT_THROW(IsValidFilename(emptyFilename), std::invalid_argument) << "빈 문자열을 전달하였을 때";
+}
+
+// IsValidFilename에 빈문자열을 전달할 경우, 예외가 제대로 발생하는지 여부를 검증하고 싶다.
+#if 0
+TEST(GoogleTest, Sample4) {
+	std::string emptyFilename = "";
+
+	try {
+		IsValidFilename(emptyFilename);
+		FAIL() << "기대한 예외가 발생하지 않았습니다.";
+	} catch (std::invalid_argument& e) {
+		SUCCEED();
+	} catch (...) {
+		FAIL() << "다른 종류의 예외가 발생하였습니다.";
+	}
+}
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
