@@ -96,6 +96,38 @@ TEST(GoogleTest, Sample4) {
 #endif
 
 
+// 5. 테스트 비활성화
+// - 테스트케이스를 주석 처리한다: 잊혀진 테스트
+// => TestSuite 이름 또는 TestCase의 이름이 DISABLED_ 이름으로 시작하면 비활성화됩니다.
+
+// - 비활성화된 테스트도 포함해서 동작할 수 있는 명령어 옵션를 제공합니다.
+//  $ ./a.out --gtest_also_run_disabled_tests
+TEST(GoogleTest, DISABLED_Sample5) {
+	// 작성 중입니다.
+	FAIL() << "작성 중입니다.";
+}
+
+class DISABLED_SampleTest : public testing::Test {
+};
+
+TEST_F(DISABLED_SampleTest, foo) {
+}
+
+TEST_F(DISABLED_SampleTest, goo) {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
