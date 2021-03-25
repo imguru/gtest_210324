@@ -18,7 +18,7 @@
 //
 //					 "의존성 주입 프레임워크를 사용하면 보일러플레이트를 효과적으로 제거할 수 있습니다."
 //					 Java: Dagger2
-//					 C++: https://github.com/google/fruit
+//					 C++: https://github.com/google/fruit(참고)
 //
 //					 A / B / C
 //
@@ -57,9 +57,15 @@ public:
 // FileSystem fs;
 // Logger logger(&fs);
 
+// SUT를 테스트 대역을 적용할 수 있는 설계로 변경하는 작업 - 틈새 만들기
+//  => 기존의 사용법과 동일하게 만드는 것이 좋습니다.
 class Logger {
 public:
-	Logger(IFileSystem* p) : fileSystem(p) {}
+	Logger(IFileSystem* p = nullptr) : fileSystem(p) {
+		if (fileSystem == nullptr) {
+			fileSystem = new FileSystem;
+		}
+	}
 
 	// file.log
 	//  : 확장자를 제외한 이름이 5글자 이상이어야 한다.
@@ -83,6 +89,36 @@ private:
 
 #include <gtest/gtest.h>
 
+// Test Double
+class FileSystemTestDouble : public IFileSystem {
+public:
+	bool IsValid(const std::string& filename) override {
+		return true;  // !!!!
+	}
+};
+
+
+
+// Logger에 5글 자 이상의 파일을 전달하였을 때, true를 반환하는지 검증하고 싶다.
+TEST(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue) {
+	FileSystemTestDouble fs;
+	Logger logger(&fs); // !!!!
+	std::string validFilename = "valid_file_name.log";
+
+	EXPECT_TRUE(logger.IsValidLogFilename(validFilename)) << "파일명이 다섯글자 이상일 때";
+}
+
+// Logger에 5글자 미만의 파일을 전달하였을 때, false를 반환하는지 검증하고 싶다.
+TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_ReturnsFalse) {
+	FileSystemTestDouble fs;
+	Logger logger(&fs);
+	std::string invalidFilename = "bad.log";
+	
+	bool actual = logger.IsValidLogFilename(invalidFilename);
+
+	EXPECT_FALSE(actual) << "파일명이 다섯글자 미만일 때";
+}
+#if 0
 //----------------
 // Logger에 5글 자 이상의 파일을 전달하였을 때, true를 반환하는지 검증하고 싶다.
 TEST(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue) {
@@ -101,6 +137,7 @@ TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_ReturnsFalse) {
 
 	EXPECT_FALSE(actual) << "파일명이 다섯글자 미만일 때";
 }
+#endif
 
 
 
