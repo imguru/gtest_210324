@@ -116,6 +116,25 @@ TEST_F(DISABLED_SampleTest, foo) {
 TEST_F(DISABLED_SampleTest, goo) {
 }
 
+// 6. 반복 테스트
+//  => 변덕스러운 테스트를 확인하는 목적으로 사용할 수 있다.
+//   $ ./a.out --gtest_repeat=100 --gtest_break_on_failure --gtest_shuffle
+int n = 0;
+TEST(GoogleTest, Sample6) {
+	EXPECT_NE(++n, 50);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
