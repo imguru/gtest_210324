@@ -7,7 +7,7 @@ public:
 
 	virtual bool IsValid(const std::string& filename) {
 		// ...
-		return false;
+		return true;
 	}
 };
 

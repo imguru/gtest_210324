@@ -7,6 +7,7 @@ using testing::TestSuite;
 using testing::TestInfo;
 using testing::TestPartResult;
 
+// Google Test
 class MyTestPrinter : public testing::EmptyTestEventListener {
 public:
 	void OnTestProgramStart(const UnitTest& /*unit_test*/) override {

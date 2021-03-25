@@ -140,7 +140,7 @@ TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_ReturnsFalse) {
 
 // 용어적인 부분이 정리가 안되어 있었습니다.
 //  => xUnit Test Pattern
-//     - Test Double => 이전에는 Mock이라고 불렸습니다.
+//     - Test Double => 이전에는 Mock이라고 불렸습니다. => Mockist
 //     1) Test Stub
 //     2) Fake Object
 //     3) Test Spy

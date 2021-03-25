@@ -15,6 +15,10 @@ struct IConnection {
 
 	virtual void Move(int x, int y) = 0;
 	virtual void Attack() = 0;
+
+	// 기본 구현을 가지는 추상 메소드 - defender method의 개념
+	virtual void foo() {}
+	virtual void goo() {}
 };
 
 class TCPConnection : public IConnection {
@@ -30,6 +34,8 @@ public:
 	void Move(int x, int y) {
 		try {
 			connection->Move(x, y);
+
+			// ....
 		} catch (NetworkException& e) {
 			printf("NetworkException 동작....\n");
 			throw e;
@@ -46,6 +52,13 @@ public:
 //
 //   => 특수한 상황을 시뮬레이션 하고 싶다.
 //     : 예외, 반환값, 시간 등의 제어가 불가능한 환경을 제어하기 위한 목적으로 사용한다.
+//
+//
+//   => 테스트 대역은 협력 객체의 인터페이스를 구현한다.
+//      : 인터페이스가 복잡하면 테스트 대역을 만드는 비용이 증가한다.
+//		ISP(Interface Segregation Principle) => 인터페이스 분리 원칙
+//		  : 범용 인터페이스 보다는 세분화된 인터페이스가 낫다.
+//
 class StubConnection : public IConnection {
 public:
 	void Move(int x, int y) override {
