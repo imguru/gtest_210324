@@ -63,6 +63,7 @@ TEST(PlayerTest, Move) {
 	// TCPConnection conn;
 	StubConnection conn;
 	Player player(&conn);
+	// 의존성 주입: 제품 코드를 사용하는 방식 그대로 테스트 할 수 있다.
 
 	EXPECT_THROW(player.Move(10, 20), NetworkException);
 }
