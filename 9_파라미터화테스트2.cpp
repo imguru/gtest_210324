@@ -9,6 +9,7 @@ bool IsPrime(int value) {
 }
 
 //------
+// Ctrl, w, f
 #include <gtest/gtest.h>
 
 // Parameterized Test Pattern
@@ -31,6 +32,8 @@ class PrimeTest : public testing::TestWithParam<int> {
 
 using testing::Values;
 INSTANTIATE_TEST_SUITE_P(PrimeValues, PrimeTest, Values(2, 3, 5, 7, 11, 13, 17, 19, 23));
+// g, ]     : Tag 이동
+// ctrl + t : Tag 복귀 
 
 
 // 3. TestCase를 만들면 됩니다.
