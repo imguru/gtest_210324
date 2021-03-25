@@ -98,7 +98,6 @@ public:
 };
 
 
-
 // Logger에 5글 자 이상의 파일을 전달하였을 때, true를 반환하는지 검증하고 싶다.
 TEST(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue) {
 	FileSystemTestDouble fs;
@@ -132,12 +131,37 @@ TEST(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue) {
 TEST(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_ReturnsFalse) {
 	Logger logger;
 	std::string invalidFilename = "bad.log";
-	
+
 	bool actual = logger.IsValidLogFilename(invalidFilename);
 
 	EXPECT_FALSE(actual) << "파일명이 다섯글자 미만일 때";
 }
 #endif
+
+// 용어적인 부분이 정리가 안되어 있었습니다.
+//  => xUnit Test Pattern
+//     - Test Double => 이전에는 Mock이라고 불렸습니다.
+//     1) Test Stub
+//     2) Fake Object
+//     3) Test Spy
+//     4) Mock Object
+//     5) Dummy Object => 타입을 맞추는 목적
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
