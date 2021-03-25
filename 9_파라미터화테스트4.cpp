@@ -11,6 +11,7 @@ class StringTest : public testing::TestWithParam<std::string> {
 using testing::Values;
 using testing::ValuesIn;
 
+#if 0
 std::vector<std::string> LoadInputStrings() {
 	// ...
 	std::vector<std::string> v;
@@ -21,6 +22,16 @@ std::vector<std::string> LoadInputStrings() {
 	v.push_back("hello");
 	v.push_back("hello");
 	v.push_back("hello");
+	return v;
+}
+#endif
+std::vector<std::string> LoadInputStrings() {
+	std::vector<std::string> v(3);
+	
+	std::cin >> v[0];
+	std::cin >> v[1];
+	std::cin >> v[2];
+
 	return v;
 }
 
