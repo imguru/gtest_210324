@@ -25,12 +25,18 @@ std::vector<std::string> LoadInputStrings() {
 	return v;
 }
 #endif
+
+// ???
+//  $ ./a.out < input.txt
 std::vector<std::string> LoadInputStrings() {
-	std::vector<std::string> v(3);
+	std::vector<std::string> v;
 	
-	std::cin >> v[0];
-	std::cin >> v[1];
-	std::cin >> v[2];
+	while (!std::cin.eof()) {
+		std::string input;
+		std::cin >> input;
+	
+		v.push_back(input);
+	}
 
 	return v;
 }
