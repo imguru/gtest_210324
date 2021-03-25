@@ -137,12 +137,15 @@ TEST(SampleTest3, foo) {}
 TEST(SampleTest3, goo) {}
 
 // 8. Test Result Formatter
-//  $ ./a.out --gtest_output=xml
+//  $ ./a.out --gtest_output=[xml|json]:/path/output.xml
 //    xml: test_details.xml   -> xUnit Test Framework
 //    json: test_details.json -> Google Test
 
-
-
+// 9. 추가적인 정보를 기록할 수 있습니다.
+TEST(GoogleTest, Sample9) {
+	RecordProperty("cpu", "2.5");
+	RecordProperty("mem", "512");
+}
 
 
 
