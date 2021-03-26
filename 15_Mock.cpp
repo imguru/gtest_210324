@@ -87,8 +87,6 @@ public:
 	MOCK_METHOD(void, Write, (Level level, const std::string& message), (override));
 };
 
-
-
 TEST(DLoggerTest, Write) {
 	// Arrange
 	DLogger logger;
@@ -105,3 +103,29 @@ TEST(DLoggerTest, Write) {
 	// Act
 	logger.Write(test_level, test_message);
 }
+//-------
+// Test Double(테스트 대역)
+//   : 테스트 대역을 직접 만드는 것은 테스트의 복잡도를 올립니다.
+//   => 유지 보수가 어려워집니다.
+//   => Mock Framework: 행위 기반 검증을 수행할 수 있고, Stub / Fake 등의 테스트 대역을 만들 수 있습니다.
+// 1. Stub
+//   : 특수한 상황을 시뮬레이션 한다.
+// 2. Fake
+//   : 의존하는 객체가 준비되지 않거나, 느려서, 사용하기 어렵거나 할 때 가벼운 테스트 대역을 만들어서 대체한다.
+// 3. Spy
+//   : 관찰할 수 있는 부수효과가 존재하지 않을 때, 목격한 일을 기록해두었다가 테스트에서 검증할 수 있도록 한다.
+// 4. Mock - Google Mock
+//   :                   "                       , 행위 기반 검증을 수행한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
