@@ -1,5 +1,7 @@
 
 #include <stdio.h>
+#include <stdlib.h>
+
 
 class Sample {
 public:
@@ -15,13 +17,14 @@ public:
 	virtual void Setup() {
 
 	}
-#endif
 	void Setup() override {
 
 	}
+#endif
 
 };
 
 int main() {
+	abort();
 
 }
