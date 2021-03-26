@@ -7,7 +7,7 @@ enum Level {
 };
 
 struct DLoggerTarget {
-	virtual DLoggerTarget {};
+	virtual ~DLoggerTarget() {};
 
 	virtual void Write(Level level, const std::string& message) = 0;
 };
@@ -29,17 +29,62 @@ public:
 
 	void Write(Level level, const std::string& message) {
 		for (DLoggerTarget* e: targets) {
-			e->Write(level, message);
+			// e->Write(level, message);
+			// break;
 		}
 	}
 };
 
 //--------------
 #include <gtest/gtest.h>
+#include <vector>
+#include <string>
 
+#include <algorithm> // find
+
+// Test Spy Pattern
+//  의도: 함수를 호출하였을 때 발생하는 부수 효과를 관찰할 수 없어서 테스트되지 않은 요구사항이 있을 때
+//  방법: 목격한 일을 기록해 두었다가, 나중에 테스트에서 확인할 수 있도록 만들어진 테스트 대역
+//       => 다른 컴포넌트로부터의 간접 출력을 저장해두었다가 검증한다.
+class SpyTarget : public DLoggerTarget {
+	std::vector<std::string> history;
+
+	std::string concat(Level level, const std::string& message) {
+		static const char* levelStr[] = {
+			"INFO", "WARN", "ERROR",
+		};
+
+		return std::string(levelStr[level]) + "@" + message;
+	}
+
+public:
+	void Write(Level level, const std::string& message) override {
+		// 목격한 일을 기록한다.
+		history.push_back(concat(level, message));
+	}
+	
+	// 테스트에서 확인할 수 있도록 만들어진 함수
+	bool IsReceived(Level level, const std::string& message) {
+		return std::find(history.begin(), history.end(), concat(level, message)) != history.end();
+	}
+};
 
 // DLoggerTarget에 대해서 2개 이상의 타겟을 등록하고, Write 수행하였을 때 
 // 모든 Target에 Write가 호출되었는지 여부를 검증하고 싶다.
+TEST(DLoggerTest, Write) {
+	DLogger logger;
+	SpyTarget t1, t2;
+	logger.AddTarget(&t1);
+	logger.AddTarget(&t2);
+	Level test_level = INFO;
+	std::string test_message = "test_log_message";
+
+	logger.Write(test_level, test_message);
+
+	EXPECT_TRUE(t1.IsReceived(test_level, test_message));
+	EXPECT_TRUE(t2.IsReceived(test_level, test_message));
+}
+#if 0
 TEST(DLoggerTest, Write) {
 	DLogger logger;
 	FileTarget t1, t2;
@@ -51,6 +96,7 @@ TEST(DLoggerTest, Write) {
 	logger.Write(test_level, test_message);
 
 }
+#endif
 
 
 
