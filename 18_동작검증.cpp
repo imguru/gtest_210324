@@ -138,9 +138,9 @@ void Sample4(Foo* p) {
 //
 //   InSequence 객체
 //    : EXPECT_CALL은 순서를 판단합니다.
-
 using testing::InSequence;
 
+// First -> Second -> Third -> Forth
 TEST(FooTest, Sample4) {
 	MockFoo mock;
 	InSequence seq; // !!!!
@@ -151,6 +151,32 @@ TEST(FooTest, Sample4) {
 	EXPECT_CALL(mock, Forth);
 
 	Sample4(&mock);
+}
+
+void Sample5(Foo* p) {
+	p->First();
+	p->Third();
+	p->Second();
+	p->Forth();
+}
+
+// Sequence
+// First -> Second -> Forth  : s1
+//       |
+//       |- Thrid            : s2
+
+using testing::Sequence;
+
+TEST(FooTest, Sample5) {
+	MockFoo mock;
+	Sequence s1, s2;
+	
+	EXPECT_CALL(mock, First).InSequence(s1, s2);
+	EXPECT_CALL(mock, Second).InSequence(s1);
+	EXPECT_CALL(mock, Third).InSequence(s2);
+	EXPECT_CALL(mock, Forth).InSequence(s1);
+
+	Sample5(&mock);
 }
 
 
