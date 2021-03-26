@@ -40,7 +40,7 @@ public:
 	// 아래 매크로의 영향으로 Add라는 동일한 이름을 가지는 함수가 감추어집니다.
 	MOCK_METHOD(int, Add, (int times, Element x), (override));
 
-	using Calc::Add;  // 명시적으로 선언이 필요합니다.
+	using Calc::Add;  // 오버로딩한 함수가 MOCK_METHOD가 되어 있을 경우, 직접 호출하기 위해서는 명시적으로 선언이 필요합니다.
 };
 
 TEST(UserTest, Add) {
