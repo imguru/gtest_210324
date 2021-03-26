@@ -28,7 +28,7 @@ public:
 
 	void Write(Level level, const std::string& message) {
 		for (DLoggerTarget* e: targets) {
-			// e->Write(level, message);
+			e->Write(level, message);
 			// break;
 		}
 	}
@@ -55,74 +55,31 @@ public:
 //     Java: jMock, EasyMock, Mockito, Spock 
 //      C++: Google Mock
 
+// 1. 헤더 파일
+#include <gmock/gmock.h>
 
-class SpyTarget : public DLoggerTarget {
-	std::vector<std::string> history;
-
-	std::string concat(Level level, const std::string& message) {
-		static const char* levelStr[] = {
-			"INFO", "WARN", "ERROR",
-		};
-
-		return std::string(levelStr[level]) + "@" + message;
-	}
-
+// 2. Mock Object 생성 - Mocking
+class MockDLoggerTarget : public DLoggerTarget {
 public:
-	void Write(Level level, const std::string& message) override {
-		// 목격한 일을 기록한다.
-		history.push_back(concat(level, message));
-	}
+	// virtual void Write(Level level, const std::string& message) = 0;
 	
-	// 테스트에서 확인할 수 있도록 만들어진 함수
-	bool IsReceived(Level level, const std::string& message) {
-		return std::find(history.begin(), history.end(), concat(level, message)) != history.end();
-	}
+	// MOCK_METHOD{인자개수}(함수이름, 함수시그니처)
+	MOCK_METHOD2(Write, void(Level level, const std::string& message));
 };
 
-// DLoggerTarget에 대해서 2개 이상의 타겟을 등록하고, Write 수행하였을 때 
-// 모든 Target에 Write가 호출되었는지 여부를 검증하고 싶다.
 TEST(DLoggerTest, Write) {
+	// Arrange
 	DLogger logger;
-	SpyTarget t1, t2;
+	MockDLoggerTarget t1, t2;
 	logger.AddTarget(&t1);
 	logger.AddTarget(&t2);
 	Level test_level = INFO;
 	std::string test_message = "test_log_message";
 
+	// Assert
+	EXPECT_CALL(t1, Write(test_level, test_message));
+	EXPECT_CALL(t2, Write(test_level, test_message));
+
+	// Act
 	logger.Write(test_level, test_message);
-
-	EXPECT_TRUE(t1.IsReceived(test_level, test_message));
-	EXPECT_TRUE(t2.IsReceived(test_level, test_message));
 }
-#if 0
-TEST(DLoggerTest, Write) {
-	DLogger logger;
-	FileTarget t1, t2;
-	logger.AddTarget(&t1);
-	logger.AddTarget(&t2);
-	Level test_level = INFO;
-	std::string test_message = "test_log_message";
-
-	logger.Write(test_level, test_message);
-
-}
-#endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
