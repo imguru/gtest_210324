@@ -109,6 +109,79 @@ TEST(UserTest, Sample3) {
 	Sample3(&mock);
 }
 
+struct Foo {
+	virtual ~Foo() {}
+
+	virtual void First() = 0;
+	virtual void Second() = 0;
+	virtual void Third() = 0;
+	virtual void Forth() = 0;
+};
+
+class MockFoo : public Foo {
+public:
+	MOCK_METHOD(void, First, (), (override));
+	MOCK_METHOD(void, Second, (), (override));
+	MOCK_METHOD(void, Third, (), (override));
+	MOCK_METHOD(void, Forth, (), (override));
+};
+
+void Sample4(Foo* p) {
+	p->First();
+	p->Second();
+	p->Third();
+	p->Forth();
+}
+
+// 3. 호출 순서 검증
+//   : EXPECT_CALL은 순서를 판단하지 않습니다. - 기본
+//
+//   InSequence 객체
+//    : EXPECT_CALL은 순서를 판단합니다.
+
+using testing::InSequence;
+
+TEST(FooTest, Sample4) {
+	MockFoo mock;
+	InSequence seq; // !!!!
+	
+	EXPECT_CALL(mock, First);
+	EXPECT_CALL(mock, Second);
+	EXPECT_CALL(mock, Third);
+	EXPECT_CALL(mock, Forth);
+
+	Sample4(&mock);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
