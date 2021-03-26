@@ -32,17 +32,22 @@ Uninteresting mock function call - returning directly.
 
 // 2. NiceMock
 //   - 경고를 발생시키지 않습니다.
+//   - 행위 기반 검증을 사용하지 않을 때 - EXPECT_CALL X => 상태 기반 검증
 //
 // 3. StrictMock
 //   - 테스트가 실패합니다.
+//   => 테스트의 통과 기준이 높아지기 때문에, 테스트를 작성하는 비용이 증가될 수 있다.
 
 using testing::NiceMock;
 using testing::StrictMock;
+using testing::NaggyMock;
 
 TEST(UserTest, Say) {
 	// MockUser mock;
+	NaggyMock<MockUser> mock;
+
 	// NiceMock<MockUser> mock;
-	StrictMock<MockUser> mock;
+	// StrictMock<MockUser> mock;
 
 	EXPECT_CALL(mock, Say());
 	
