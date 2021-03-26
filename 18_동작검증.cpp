@@ -80,6 +80,10 @@ using testing::Lt;  // <
 using testing::Gt;  // > 
 using testing::Le;  // <=
 using testing::Ge;  // >=
+using testing::AllOf; // &&
+using testing::AnyOf; // ||
+
+using testing::Matcher;
 
 TEST(UserTest, Sample3) {
 	MockUser mock;
@@ -87,9 +91,16 @@ TEST(UserTest, Sample3) {
 	// EXPECT_CALL(mock, Go(Eq(10), _)).Times(3);
 	// EXPECT_CALL(mock, Go(10, _)).Times(3);
 
+	// arg1 > 10 && arg1 < 30
+	// Matcher<int> firstArg = AllOf(Gt(10), Lt(30));
+	auto firstArg = AllOf(Gt(10), Lt(30));
+	// arg2 < 0  || arg2 > 20
+	Matcher<int> secondArg = AnyOf(Lt(0), Gt(20));
+
+	EXPECT_CALL(mock, Go(firstArg, secondArg)).Times(3);
+#if 0
 	// arg1 > 10 && arg2 < 30
 	EXPECT_CALL(mock, Go(Gt(10), Lt(30))).Times(3);
-#if 0
 	EXPECT_CALL(mock, Go(10, 21));
 	EXPECT_CALL(mock, Go(10, 22));
 	EXPECT_CALL(mock, Go(10, 23));
