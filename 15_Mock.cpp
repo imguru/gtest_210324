@@ -58,6 +58,16 @@ public:
 // 1. 헤더 파일
 #include <gmock/gmock.h>
 
+#if 0
+$ ./googletest/googlemock/scripts/generator/gmock_gen.py DLoggerTarget.h
+class MockDLoggerTarget : public DLoggerTarget {
+ public:
+  MOCK_METHOD2(Write,
+      void(Level level, const std::string& message));
+};
+#endif
+// 위의 스크립트는 더 이상 사용하면 안됩니다. - 1.10 이전의 방식
+#if 0
 // 2. Mock Object 생성 - Mocking
 class MockDLoggerTarget : public DLoggerTarget {
 public:
@@ -66,6 +76,18 @@ public:
 	// MOCK_METHOD{인자개수}(함수이름, 함수시그니처)
 	MOCK_METHOD2(Write, void(Level level, const std::string& message));
 };
+#endif
+
+// 1.10 이후
+class MockDLoggerTarget : public DLoggerTarget {
+public:
+	// void Write(Level level, const std::string& message) override {}
+	
+	// MOCK_METHOD(반환타입, 이름, 인자정보, 한정자)
+	MOCK_METHOD(void, Write, (Level level, const std::string& message), (override));
+};
+
+
 
 TEST(DLoggerTest, Write) {
 	// Arrange
