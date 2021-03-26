@@ -49,9 +49,9 @@ using testing::AnyNumber;
 using testing::Between;
 
 void Sample2(User* p) {
-	// p->Go(10, 20);
-	// p->Go(10, 20);
-	// p->Go(10, 20);
+	p->Go(10, 20);
+	p->Go(10, 20);
+	p->Go(10, 20);
 }
 
 TEST(UserTest, Sample2) {
@@ -62,12 +62,41 @@ TEST(UserTest, Sample2) {
 	// EXPECT_CALL(mock, Go(10, 20)).Times(AnyNumber());
 	EXPECT_CALL(mock, Go(10, 20)).Times(Between(1, 3));
 	
-	
-
 	Sample2(&mock);
 }
 
+void Sample3(User* p) {
+	p->Go(11, 21);
+	p->Go(12, 22);
+	p->Go(13, 23);
+}
 
+
+// Matcher 이용해서 인자에 대한 효과적인 검증이 가능합니다.
+//  => Hamcrest Mathcer
+using testing::Eq;  // ==
+using testing::_;   // 무조건 true
+using testing::Lt;  // <
+using testing::Gt;  // > 
+using testing::Le;  // <=
+using testing::Ge;  // >=
+
+TEST(UserTest, Sample3) {
+	MockUser mock;
+
+	// EXPECT_CALL(mock, Go(Eq(10), _)).Times(3);
+	// EXPECT_CALL(mock, Go(10, _)).Times(3);
+
+	// arg1 > 10 && arg2 < 30
+	EXPECT_CALL(mock, Go(Gt(10), Lt(30))).Times(3);
+#if 0
+	EXPECT_CALL(mock, Go(10, 21));
+	EXPECT_CALL(mock, Go(10, 22));
+	EXPECT_CALL(mock, Go(10, 23));
+#endif
+	
+	Sample3(&mock);
+}
 
 
 
