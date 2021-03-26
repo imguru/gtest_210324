@@ -71,12 +71,18 @@ bool operator!=(const User& lhs, const User& rhs) {
 	return !(lhs == rhs);
 }
 
+// 사용자 정의 객체가 문자열로 표현될 수 있도록 만들어준다.
+std::ostream& operator<<(std::ostream& os, const User& user) {
+	return os << "User(name=" << user.GetName() << ", age=" << user.GetAge() << ")";
+}
+
 TEST(UserManagerTest, Save) {
 	FakeDatabase fake;
 	UserManager manager(&fake);
 	std::string testName = "test_name";
 	int testAge = 42;
 	User expected(testName, testAge);
+	User expected2("Tom", testAge);
 
 	manager.Save(&expected);
 	User* actual = manager.Load(testName);
@@ -86,7 +92,7 @@ TEST(UserManagerTest, Save) {
 	// 사용자 정의 타입에 단언문을 사용하기 위해서는 
 	// 연산자 오버로딩이 필요합니다.
 	//  EQ(==) / NE(!=), LT(<), GT(>), LE(<=), GE(>=)
-	EXPECT_EQ(expected, *actual) << "Load 하였을 때";
+	EXPECT_EQ(expected2, *actual) << "Load 하였을 때";
 }
 
 
