@@ -32,7 +32,7 @@ public:
 
 // TDD(Test Driven Development) vs BDD(Behavior Driven Developmen)
 // => 용어적인 차이(사람의 말과 가깝게 사용하자)
-//    행위 기반 검증
+//    행위 기반 검증(Mock Framework)
 
 // 테스트 코드 품질
 // 1. 가독성

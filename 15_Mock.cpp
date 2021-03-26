@@ -1,4 +1,3 @@
-
 #include <string>
 #include <vector>
 
@@ -42,10 +41,21 @@ public:
 
 #include <algorithm> // find
 
-// Test Spy Pattern
+// Mock Object Pattern
 //  의도: 함수를 호출하였을 때 발생하는 부수 효과를 관찰할 수 없어서 테스트되지 않은 요구사항이 있을 때
-//  방법: 목격한 일을 기록해 두었다가, 나중에 테스트에서 확인할 수 있도록 만들어진 테스트 대역
-//       => 다른 컴포넌트로부터의 간접 출력을 저장해두었다가 검증한다.
+//  방법: 행위 기반 검증(동작 검증)
+//      - 객체에 작용을 가한 후 내부적으로 발생하는 함수의 호출 여부, 호출 순서, 호출 횟수 등을 통해 검증을 수행합니다.
+//
+//        상태 기반 검증(상태 검증)
+//      - 객체에 작용을 가한 후 단언문을 통해 내부의 상태값의 변경을 검증한다. 
+
+// Mock Object(모의 객체)
+//  : 내부적으로 발생한 함수의 호출 여부, 횟수, 순서 등의 정보를 기록합니다.
+//  => Mock Framework
+//     Java: jMock, EasyMock, Mockito, Spock 
+//      C++: Google Mock
+
+
 class SpyTarget : public DLoggerTarget {
 	std::vector<std::string> history;
 
